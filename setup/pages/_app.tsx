@@ -1,5 +1,6 @@
 import App from 'next/app';
 import '../styles/index.css';
+import '../styles/variables.css';
 
 export default class MyApp extends App {
   render() {
