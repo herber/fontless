@@ -3,7 +3,7 @@ import Head from 'next/head';
 import { Button } from '@varld/fontless-components';
 
 let Wrapper = styled.div`
-  height: 100%;
+  height: 100vh;
   margin: 0px auto;
   max-width: 600px;
   text-align: center;
