@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useRef } from 'react';
 import { ChevronDown } from 'react-feather';
 import Link from 'next/link';
 import {
@@ -11,15 +11,25 @@ import {
   NavRight,
   MobileMenu
 } from '@varld/fontless-components';
-import { useSize } from '@varld/fontless-hooks';
+import { useSize, useScroll } from '@varld/fontless-hooks';
 
 export let Navbar = ({ name }: { name: string }) => {
   let [open, setOpen] = useState(false);
   let { width } = useSize();
+  let { y } = useScroll();
+  let lastYRef = useRef<number>();
 
   useEffect(() => {
     if (width > 870 && open) setOpen(false);
   }, [width, open]);
+
+  useEffect(() => {
+    if (y != lastYRef.current && open) {
+      setOpen(false);
+    }
+
+    lastYRef.current = y;
+  }, [y, open]);
 
   let isMobile = width <= 870;
 

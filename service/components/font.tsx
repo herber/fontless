@@ -15,21 +15,27 @@ let Wrapper = styled.div`
   text-align: left;
   border: solid var(--accent-1) 1px;
   border-radius: 10px;
-  height: 260px;
   transition: all 0.3s;
   margin-top: 20px;
-  display: grid;
-  grid-template-columns: 300px auto;
+
+  @media screen and (min-width: 720px) {
+    display: grid;
+    grid-template-columns: 300px auto;
+    height: 260px;
+  }
 `;
 
 let Text = styled.div<{ loaded: boolean }>`
   font-size: 2em;
-  height: 200px;
   overflow: hidden;
   opacity: 0;
   pointer-events: none;
   transition: all 0.5s;
   transform: translateY(20px);
+
+  @media screen and (min-width: 720px) {
+    height: 200px;
+  }
 
   ${p =>
     p.loaded &&
@@ -48,23 +54,40 @@ let Name = styled.div`
 `;
 
 let Info = styled.div`
-  border-right: solid var(--accent-1) 1px;
   padding: 20px 25px 0px 25px;
+
+  @media screen and (min-width: 720px) {
+    border-right: solid var(--accent-1) 1px;
+  }
+
+  @media screen and (max-width: 720px) {
+    padding: 20px 25px 15px 25px;
+    border-bottom: solid var(--accent-1) 1px;
+  }
 `;
 
 let Options = styled.div`
   padding: 20px;
-  display: grid;
-  grid-template-columns: 50% 50%;
-  grid-template-rows: 24px 24px 24px 24px 24px 24px 24px 24px;
-  grid-row-gap: 15px;
-  height: 260px;
-  overflow: scroll;
+
+  @media screen and (min-width: 720px) {
+    display: grid;
+    grid-template-columns: 50% 50%;
+    grid-template-rows: 24px 24px 24px 24px 24px 24px 24px 24px 24px 24px 24px 24px 24px;
+    grid-row-gap: 15px;
+    height: 260px;
+    overflow: scroll;
+  }
 `;
 
 let Variant = styled.div`
   display: flex;
   height: 24px;
+
+  @media screen and (max-width: 720px) {
+    &:not(:last-of-type) {
+      margin-bottom: 10px;
+    }
+  }
 `;
 let VariantName = styled.div`
   height: 24px;

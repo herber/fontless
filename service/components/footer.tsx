@@ -2,21 +2,33 @@ import styled from 'styled-components';
 import { SimpleButton } from '@varld/fontless-components';
 
 let Wrapper = styled.div`
-  display: flex;
   padding: 20px 30px;
   margin-top: 50px;
+  display: flex;
+
+  @media screen and (max-width: 720px) {
+    flex-direction: column;
+    text-align: center;
+  }
 `;
+
 let Left = styled.div`
   flex-grow: 1;
   line-height: 20px;
   font-size: 14px;
 `;
+
 let Right = styled.div`
   display: flex;
   margin-top: 5px;
 
   a {
     margin-left: 10px;
+  }
+
+  @media screen and (max-width: 720px) {
+    width: fit-content;
+    margin: 0px auto;
   }
 `;
 
