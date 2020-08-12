@@ -1,0 +1,35 @@
+{
+  "private": true,
+  "name": "varld-fontless-service",
+  "version": "1.0.0",
+  "scripts": {
+    "dev": "next",
+    "build": "npm-run-all build:fonts build:next",
+    "start": "next start",
+    "build:next": "next build",
+    "build:fonts": "ts-node ./scripts/prepare-fonts.ts"
+  },
+  "dependencies": {
+    "@varld/fontless-components": "0.1.1",
+    "@varld/fontless-hooks": "0.1.0",
+    "ascii-art-font": "^1.0.2",
+    "axios": "^0.19.2",
+    "fs-extra": "^9.0.1",
+    "next": "^9.5.2",
+    "react": "^16.8.0",
+    "react-dom": "^16.8.0",
+    "react-hook-inview": "^4.2.1",
+    "specks": "^0.1.0-beta",
+    "styled-components": "^5.0.0"
+  },
+  "devDependencies": {
+    "@types/fs-extra": "^9.0.1",
+    "@types/node": "^14.0.27",
+    "@types/styled-components": "^5.1.2",
+    "babel-plugin-styled-components": "^1.8.0",
+    "npm-run-all": "^4.1.5",
+    "ts-node": "^8.10.2",
+    "typescript": "^3.9.7"
+  },
+  "license": "ISC"
+}

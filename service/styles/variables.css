@@ -1,0 +1,18 @@
+html {
+  --background: #ffffff;
+  --foreground: #000000;
+
+  --accent-0: #f8f8f8;
+  --accent-1: #efefef;
+  --accent-2: #dddddd;
+  --accent-3: #aaaaaa;
+  --accent-4: #888888;
+  --accent-5: #444444;
+
+  --primary: #3867d6;
+  --primary-text: #ffffff;
+  --warning: #f7b731;
+  --warning-text: #000000;
+  --danger: #eb3b5a;
+  --danger-text: #ffffff;
+}
