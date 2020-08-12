@@ -18,6 +18,7 @@
     "next": "^9.5.2",
     "react": "^16.8.0",
     "react-dom": "^16.8.0",
+    "react-feather": "^2.0.8",
     "react-hook-inview": "^4.2.1",
     "specks": "^0.1.0-beta",
     "styled-components": "^5.0.0"
