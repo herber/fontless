@@ -14,8 +14,8 @@ export let getCss = (host: string, variants: FontVariant[], display?: string) =>
       ? variant.local.map(l => `local('${l}')`).join(', ')
       : "local('')"
   },
-        url('http://${host}${variant.woff2}') format('woff2'),
-        url('http://${host}${variant.woff}') format('woff');
+        url('https://${host}${variant.woff2}') format('woff2'),
+        url('https://${host}${variant.woff}') format('woff');
 }
 `;
     })
