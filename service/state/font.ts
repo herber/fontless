@@ -17,7 +17,7 @@ export let { useStore: useFontStore } = createStore(({ get, set }) => ({
       'href',
       `https://fonts.googleapis.com/css2?family=${encodeURIComponent(
         font.family
-      )}&display=block`
+      )}&display=swap`
     );
 
     linkEl.addEventListener('load', () => {
