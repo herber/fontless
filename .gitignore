@@ -106,3 +106,4 @@ dist
 fontless.config.json
 service/public/
 .DS_Store
+.env.local
