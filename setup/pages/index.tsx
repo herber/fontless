@@ -125,8 +125,12 @@ let Home = () => {
                 </a>
               </Link>
               <Spacer width={15} />
-              <a href="https://varld.co">
-                <Button display="secondary">More from Varld</Button>
+              <a
+                href="https://fontless-demo.varld.co"
+                target="_blank"
+                rel="noopener noreferrer"
+              >
+                <Button display="secondary">Demo</Button>
               </a>
             </Buttons>
           </Center>
@@ -212,6 +216,14 @@ let Home = () => {
                 <Button>Get started for free</Button>
               </a>
             </Link>
+            <Spacer width={15} />
+            <a
+              href="https://github.com/varld/fontless"
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              <Button display="secondary">Source code</Button>
+            </a>
           </Buttons>
         </Center>
 
