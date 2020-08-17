@@ -4,6 +4,10 @@ module.exports = {
       {
         source: '/css',
         destination: '/api/css'
+      },
+      {
+        source: '/css2',
+        destination: '/api/css'
       }
     ];
   }
