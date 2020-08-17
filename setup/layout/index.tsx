@@ -1,9 +1,9 @@
 import styled from 'styled-components';
+import { Footer } from '@varld/fontless-components';
 import { Navbar } from '../components/nav';
-import { Footer } from '../components/content/footer';
 
 let Wrapper = styled.div`
-  height: 100%;
+  min-height: 100%;
   display: flex;
   flex-direction: column;
 `;
