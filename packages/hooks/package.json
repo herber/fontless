@@ -19,8 +19,8 @@
     "test": "tsdx test"
   },
   "peerDependencies": {
-    "react": ">=16",
-    "next": ">=9.5.2"
+    "next": ">=9.5.2",
+    "react": ">=16"
   },
   "prettier": {
     "singleQuote": true,
@@ -36,6 +36,7 @@
   "devDependencies": {
     "@types/react": "^16.9.46",
     "@types/react-dom": "^16.9.8",
+    "babel-jest": "^26.3.0",
     "react": "^16.13.1",
     "react-dom": "^16.13.1",
     "tsdx": "^0.13.2",
