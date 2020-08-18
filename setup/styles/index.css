@@ -50,6 +50,7 @@ hr {
   height: 1px;
   border: none;
   background: var(--accent-1);
+  width: 100%;
 }
 
 ul {

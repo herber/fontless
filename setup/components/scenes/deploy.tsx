@@ -10,8 +10,8 @@ import { getDeployment } from '../../lib/getDeployment';
 
 let Wrapper = styled.div`
   text-align: center;
-  margin-top: calc(20vh + 70px);
-  min-height: calc(80vh - 140px);
+  margin-top: calc(15vh + 70px);
+  min-height: calc(85vh - 250px);
   padding: 0px 10px;
 
   @media screen and (max-width: 720px) {

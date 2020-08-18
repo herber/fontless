@@ -9,6 +9,11 @@ import Link from 'next/link';
 let Wrapper = styled.div`
   margin-top: 100px;
   min-height: calc(100vh - 180px);
+  padding: 0px 15px;
+
+  @media screen and (max-width: 720px) {
+    margin-top: 50px;
+  }
 `;
 
 let Top = styled.div`
@@ -19,6 +24,14 @@ let Buttons = styled.div`
   width: fit-content;
   margin: 0px auto;
   display: flex;
+
+  @media screen and (max-width: 720px) {
+    display: block;
+
+    button {
+      margin: 5px auto;
+    }
+  }
 `;
 
 let Features = styled.div`
@@ -26,10 +39,18 @@ let Features = styled.div`
   display: grid;
   grid-template-columns: 33.3% 33.3% 33.3%;
   margin: 150px auto 100px auto;
+
+  @media screen and (max-width: 720px) {
+    display: block;
+  }
 `;
 
 let Feature = styled.div`
   margin: 10px;
+
+  @media screen and (max-width: 720px) {
+    margin-bottom: 20px;
+  }
 `;
 
 let FeatureTop = styled.div`
@@ -61,35 +82,73 @@ let FeatureBody = styled.div`
     font-size: 1.3em;
     margin: 20px 0px 0px 0px;
   }
+
+  @media screen and (max-width: 720px) {
+    h1 {
+      font-size: 1.4em;
+    }
+
+    p {
+      font-size: 1.1em;
+    }
+  }
 `;
 
 let ProductShowcase = styled.div`
   background: #f6f6f6;
-  /* box-shadow: 0px 30px 60px rgba(0, 0, 0, 0.12); */
   border-radius: 20px;
-  max-width: 960px;
-  margin: 150px auto 100px auto;
-  padding: 20px 0px 20px 30px;
-  display: grid;
-  grid-template-columns: 485px 430px;
+
+  @media screen and (min-width: 720px) {
+    max-width: 960px;
+    margin: 150px auto 100px auto;
+    padding: 20px 0px 20px 30px;
+    display: grid;
+    grid-template-columns: 55% 45%;
+  }
+
+  @media screen and (max-width: 720px) {
+    margin: 80px 0px 50px 0px;
+  }
 `;
 
 let ShowcaseContent = styled.div`
   padding: 20px 15px;
+
+  @media screen and (max-width: 720px) {
+    padding: 25px 25px 20px 25px;
+  }
 `;
 
 let ShowcaseImage = styled.div`
-  padding-left: 30px;
+  @media screen and (max-width: 720px) {
+    text-align: center;
+    padding-bottom: 15px;
 
-  img {
-    width: calc(100% - 30px);
-    float: right;
+    img {
+      width: 90%;
+      max-width: 350px;
+      margin: 0px auto;
+    }
+  }
+
+  @media screen and (min-width: 720px) {
+    padding-left: 30px;
+    display: flex;
+
+    img {
+      width: calc(100% - 20px);
+      float: right;
+    }
   }
 `;
 
 let ShowcaseTitle = styled(Title)`
   font-size: 2.4em;
   margin: 2px 0px 9px 0px;
+
+  @media screen and (max-width: 720px) {
+    font-size: 1.8em;
+  }
 `;
 
 let ShowcaseHeader = styled.div`
@@ -100,6 +159,10 @@ let ShowcaseHeader = styled.div`
 
 let ShowcaseText = styled.div`
   font-size: 1.3em;
+
+  @media screen and (max-width: 720px) {
+    font-size: 1.1em;
+  }
 `;
 
 let Home = () => {

@@ -2,6 +2,7 @@ import { useEffect } from 'react';
 import styled from 'styled-components';
 import { useScroll } from '@varld/fontless-hooks';
 import { PopoverRendererData } from './simplePopover';
+import { Spacer } from '@varld/fontless-components';
 
 let LinkButton = styled.a`
   color: #888;
@@ -23,6 +24,9 @@ let LinkButton = styled.a`
 let Wrapper = styled.div`
   padding-top: 15px;
   color: black;
+  display: flex;
+  flex-direction: column;
+  height: 100%;
 `;
 
 let Product = styled.a`
@@ -153,6 +157,8 @@ export let productPopover = (data: PopoverRendererData) => {
           </div>
         </ProductDescription>
       </Product>
+
+      <Spacer />
 
       <Bottom>
         <div className="bottom-inner">

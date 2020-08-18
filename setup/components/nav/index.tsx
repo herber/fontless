@@ -28,7 +28,7 @@ export let Navbar = () => {
     <>
       <ProductSwitcher />
       <NavWrapper scrolled={isMobile} style={{ position: 'sticky' }}>
-        <NavInner style={{ width: 1060, margin: '0px auto' }}>
+        <NavInner style={{ width: 1060, margin: '0px auto', maxWidth: '100vw' }}>
           <NavLeft>
             <Link href="/">
               <LogoButton>

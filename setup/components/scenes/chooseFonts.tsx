@@ -8,8 +8,8 @@ import { SelectionBar } from '../fonts/selectionBar';
 
 let Wrapper = styled.div`
   text-align: center;
-  margin-top: 180px;
-  min-height: calc(100vh - 250px);
+  margin-top: 130px;
+  min-height: calc(100vh - 200px);
 
   @media screen and (max-width: 720px) {
     margin-top: 60px;

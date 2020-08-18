@@ -22,6 +22,17 @@ let PopoverWrapper = styled.div<{ visible: boolean }>`
   opacity: 0;
   pointer-events: none;
 
+  @media screen and (max-width: 500px) {
+    position: fixed;
+    border-radius: 0px;
+    top: 40px;
+    right: 0px;
+    left: 0px;
+    bottom: 0px;
+    width: 100vw !important;
+    border: solid transparent 1px;
+  }
+
   ${p =>
     p.visible &&
     `

@@ -1,29 +1,27 @@
+import { useState, useRef, useEffect } from 'react';
 import styled from 'styled-components';
 import {
   Title,
   BigCopy,
   Mark,
-  Grid,
-  Card,
   Center,
   Spacer,
   Modal,
-  Button
+  Button,
+  Input
 } from '@varld/fontless-components';
 import { createFontServiceConfig } from '../../lib/createFontServiceConfig';
 import { Font } from '../../interfaces/font';
 import { useFontStore } from '../../state/font';
 import { download } from '../../lib/download';
-import { useState, useRef, useEffect } from 'react';
 import { config } from '../../config';
 import { getRepoContents } from '../../lib/getRepoContents';
 import { zipRepo } from '../../lib/zipRepo';
-import { Input } from '@varld/fontless-components';
 
 let Wrapper = styled.div`
   text-align: center;
-  margin-top: calc(20vh + 70px);
-  min-height: calc(80vh - 140px);
+  margin-top: calc(15vh + 70px);
+  min-height: calc(85vh - 250px);
   padding: 0px 10px;
 
   @media screen and (max-width: 720px) {
