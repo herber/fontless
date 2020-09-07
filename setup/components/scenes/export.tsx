@@ -17,6 +17,7 @@ import { download } from '../../lib/download';
 import { config } from '../../config';
 import { getRepoContents } from '../../lib/getRepoContents';
 import { zipRepo } from '../../lib/zipRepo';
+import { LaunchbaseAd } from '../launchbaseAd';
 
 let Wrapper = styled.div`
   text-align: center;
@@ -51,8 +52,12 @@ export let ExportScene = ({
   let [name, setName] = useState('');
   let selectedFonts = useFontStore(s => s.selectedFonts);
   let windowRef = useRef<Window>();
+  let [showAd, setShowAd] = useState(false);
+  let [loading, setLoading] = useState(false);
 
   let onDownloadClick = async () => {
+    setLoading(true);
+
     let data = createFontServiceConfig(fonts, selectedFonts, name);
     let contents = await getRepoContents({ org: 'varld', repo: 'fontless', path: 'service' });
     let zip = await zipRepo(contents, JSON.stringify(data, undefined, 2));
@@ -60,8 +65,11 @@ export let ExportScene = ({
 
     setExportModalOpen(undefined);
 
+    setShowAd(true);
+
     setTimeout(() => {
       setName('');
+      setLoading(false);
     }, 250);
   };
 
@@ -143,10 +151,16 @@ export let ExportScene = ({
           {
             children: 'Cancel',
             display: 'secondary',
+            disabled: loading,
             onClick: () => setExportModalOpen(undefined)
           },
           {
-            children: exportModalOpen == 'deploy' ? 'Deploy to Vercel' : 'Download Fontless',
+            children: loading
+              ? 'Loading'
+              : exportModalOpen == 'deploy'
+              ? 'Deploy to Vercel'
+              : 'Download Fontless',
+            disabled: loading,
             display: 'primary',
             onClick: exportModalOpen == 'deploy' ? onDeployClick : onDownloadClick
           }
@@ -158,6 +172,8 @@ export let ExportScene = ({
           placeholder="Enter a name"
         />
       </Modal>
+
+      <LaunchbaseAd open={showAd} onClose={() => setShowAd(false)} />
     </>
   );
 };

@@ -7,6 +7,7 @@ import { useState, useEffect } from 'react';
 import { createDeployment } from '../../lib/createDeployment';
 import { getRepoContents } from '../../lib/getRepoContents';
 import { getDeployment } from '../../lib/getDeployment';
+import { LaunchbaseAd } from '../launchbaseAd';
 
 let Wrapper = styled.div`
   text-align: center;
@@ -31,12 +32,15 @@ export let DeployScene = ({
 }) => {
   let selectedFonts = useFontStore(s => s.selectedFonts);
   let [error, setError] = useState(false);
+  let [showAd, setShowAd] = useState(false);
 
   useEffect(() => {
     if (!token || !name) return;
     let iv: number;
 
     let handler = async () => {
+      setShowAd(true);
+
       let data = createFontServiceConfig(fonts, selectedFonts, name);
       let contents = await getRepoContents({
         org: 'varld',
@@ -90,6 +94,8 @@ export let DeployScene = ({
           </>
         )}
       </Center>
+
+      <LaunchbaseAd open={showAd} onClose={() => setShowAd(false)} />
     </Wrapper>
   );
 };

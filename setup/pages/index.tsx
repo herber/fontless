@@ -299,7 +299,7 @@ let Home = () => {
               widget, powerful analytics, followup questions and more.
             </ShowcaseText>
             <Spacer height={15} />
-            <a href="https://varld.co/launchbase" target="_blank" rel="noopener noreferrer">
+            <a href="https://launchbase.work" target="_blank" rel="noopener noreferrer">
               <Button display="primary">Learn more</Button>
             </a>
           </ShowcaseContent>
