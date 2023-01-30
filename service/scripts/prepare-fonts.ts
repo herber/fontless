@@ -24,7 +24,7 @@ Learn more at https://github.com/majodev/google-webfonts-helper
 
 let fetchFontData = async (font: Font): Promise<FontData> => {
   let res = await axios.get(
-    `https://google-webfonts-helper.herokuapp.com/api/fonts/${font.id}?subsets=vietnamese,latin-ext,latin,greek-ext,greek,cyrillic-ext,cyrillic,khmer,korean`
+    `https://gwfh.mranftl.com/api/fonts/${font.id}?subsets=vietnamese,latin-ext,latin,greek-ext,greek,cyrillic-ext,cyrillic,khmer,korean`
   );
 
   return res.data;

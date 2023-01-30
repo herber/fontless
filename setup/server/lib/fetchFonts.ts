@@ -1,6 +1,6 @@
 import axios from 'axios';
 
 export let fetchFonts = async () => {
-  let res = await axios.get('https://google-webfonts-helper.herokuapp.com/api/fonts');
+  let res = await axios.get('https://gwfh.mranftl.com/api/fonts');
   return res.data;
 };

@@ -124,7 +124,7 @@ export let ExportScene = ({
           <div>
             Font data provided by{' '}
             <a
-              href="http://google-webfonts-helper.herokuapp.com/fonts"
+              href="http://gwfh.mranftl.com/fonts"
               target="_blank"
               rel="noopener noreferrer"
             >
