@@ -22,16 +22,40 @@ Learn more at https://github.com/majodev/google-webfonts-helper
 `);
 };
 
-let fetchFontData = async (font: Font): Promise<FontData> => {
+function sleeper(ms: number) {
+  return function() {
+    return new Promise(resolve => setTimeout(() => resolve(), ms));
+  };
+}
+
+function getRandomArbitrary(min: number, max: number): number {
+    return Math.random() * (max - min) + min;
+}
+
+let fetchFontData = async (font: Font, subsets = 'vietnamese,latin-ext,latin,greek-ext,greek,cyrillic-ext,cyrillic,khmer,korean'): Promise<FontData> => {
+  console.log(`> Fetching font data for "${font.id}" ${subsets ? '' : '(retry)'}`);
   let res = await axios.get(
-    `https://gwfh.mranftl.com/api/fonts/${font.id}?subsets=vietnamese,latin-ext,latin,greek-ext,greek,cyrillic-ext,cyrillic,khmer,korean`
+    `https://gwfh.mranftl.com/api/fonts/${font.id}${subsets ? `?subsets=${subsets}` : ''}`
   );
 
   return res.data;
 };
 
 let fetchFontsData = (fonts: Font[]) => {
-  return Promise.all(fonts.map(font => fetchFontData(font)));
+  const promises = [];
+  fonts.forEach((font) => {
+      promises.push(
+          Promise.all(promises)
+            .then(sleeper(getRandomArbitrary(200, 800)))
+            .then(() => fetchFontData(font))
+            .catch(() => {
+              return Promise.resolve()
+                .then(sleeper(getRandomArbitrary(200, 800)))
+                .then(() => fetchFontData(font, null));
+            })
+      );
+  });
+  return Promise.all(promises);
 };
 
 let getVariantFileName = (variant: FontVariant, type: string) =>
@@ -97,7 +121,13 @@ let fetchFont = async (font: FontData) => {
 };
 
 let setupFonts = async (fonts: FontData[]) => {
-  return Promise.all(fonts.map(f => fetchFont(f)));
+  const promises = [];
+  fonts.forEach((font) => {
+      promises.push(
+          Promise.all(promises).then(() => fetchFont(font))
+      );
+  });
+  return Promise.all(promises);
 };
 
 let writeFontsData = async (fonts: FontData[], config: any) => {
