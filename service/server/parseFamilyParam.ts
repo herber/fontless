@@ -60,6 +60,10 @@ export let parseFamilyParam = (family: string[], res: NextApiResponse) => {
       }
     }
 
+    if (selectedVariants.length === 0) {
+        selectedVariants.push('normal-400');
+    }
+
     let parsedFont = {
       id: colonParts[0],
       selectedVariants
