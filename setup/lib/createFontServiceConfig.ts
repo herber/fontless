@@ -8,7 +8,7 @@ export let createFontServiceConfig = (
   let fonts = {};
 
   for (let font of allFonts) {
-    if (selectedFonts.includes(font.id)) {
+    if (selectedFonts.length === 0 || selectedFonts.includes(font.id)) {
       fonts[font.id] = font;
     }
   }
