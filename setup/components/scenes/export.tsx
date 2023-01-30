@@ -60,7 +60,7 @@ export let ExportScene = ({
 
     let data = createFontServiceConfig(fonts, selectedFonts, name);
     let contents = await getRepoContents({ org: 'the-hotels-network', repo: 'fontless', path: 'service' });
-    let zip = await zipRepo(contents, JSON.stringify(data, undefined, 2));
+    let zip = await zipRepo(contents, JSON.stringify(data, undefined, 2), false);
     download('fontless.zip', 'application/zip', zip);
 
     setExportModalOpen(undefined);

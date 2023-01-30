@@ -1,9 +1,15 @@
 import * as fs from 'fs';
 import JSZip from 'jszip';
+import fetch from 'node-fetch'
 import { fetchFonts } from '../server/lib/fetchFonts';
 import { createFontServiceConfig } from '../lib/createFontServiceConfig';
 import { getRepoContents } from '../lib/getRepoContents';
 import { zipRepo } from '../lib/zipRepo';
+
+if (!globalThis.fetch) {
+  // @ts-ignore
+  globalThis.fetch = fetch
+}
 
 const selectedFonts = []; // all
 const name = 'thn-fontless-service';
