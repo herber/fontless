@@ -1,6 +1,6 @@
 import JSZip from 'jszip';
 
-export let zipRepo = (repo: { path: string; contents: string }[], config: string) => {
+export let zipRepo = async (repo: { path: string; contents: string }[], config: string, raw = false) => {
   let zip = new JSZip();
 
   for (let file of repo) {
@@ -9,5 +9,5 @@ export let zipRepo = (repo: { path: string; contents: string }[], config: string
 
   zip.file('fontless.config.json', config);
 
-  return zip.generateAsync({ type: 'uint8array' });
+  return raw ? zip : zip.generateAsync({ type: 'uint8array' });
 };

@@ -5,7 +5,8 @@
   "scripts": {
     "dev": "next",
     "build": "next build",
-    "start": "next start"
+    "start": "next start",
+    "do-setup": "next build && node-ts operations/doSetup.ts"
   },
   "dependencies": {
     "@varld/fontless-components": "0.1.1",
@@ -32,6 +33,7 @@
     "@types/styled-components": "^5.1.2",
     "@types/webfontloader": "^1.6.32",
     "babel-plugin-styled-components": "^1.8.0",
+    "node-ts": "^5.1.2",
     "typescript": "^3.9.7"
   },
   "license": "ISC"
