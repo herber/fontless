@@ -14,7 +14,7 @@ applicationName: "fontless"
 applicationVersion: 1.0.0
 url: "fontless.stg.thn.app"
 port: 3000
-startupProbePath: "/"
+startupProbePath: "/api/health"
 install_namespace: false
 ## Datadog Section
 ## https://docs.datadoghq.com/agent/kubernetes/log/?tab=daemonset
