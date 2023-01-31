@@ -1,4 +1,5 @@
 import { NextApiRequest, NextApiResponse } from 'next';
+import nextCors from 'nextjs-cors';
 import { missingFamilyError } from '../../server/errors/missingFamily';
 import { invalidFontDisplayError } from '../../server/errors/invalidFontDisplay';
 import { parseFamilyParam } from '../../server/parseFamilyParam';
@@ -7,7 +8,12 @@ import { getCss } from '../../server/getCss';
 
 let fonts = require('../../public/fonts.json').fonts;
 
-export default (req: NextApiRequest, res: NextApiResponse) => {
+export default async (req: NextApiRequest, res: NextApiResponse) => {
+
+  await nextCors(req, res, {
+    origin: '*',
+  });
+
   let family = Array.isArray(req.query.family) ? req.query.family : [req.query.family];
   if (typeof req.query.family == 'undefined' || family.length == 0) {
     return res.status(406).send(missingFamilyError);
