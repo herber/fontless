@@ -3,8 +3,8 @@
 
 ## Image Info
 image:
-  registry: "375001999600.dkr.ecr.eu-west-1.amazonaws.com"
-  repository: "thn-fontless"
+  registry: ""
+  repository: ""
   tag: ""
   pullPolicy: IfNotPresent
 
@@ -13,27 +13,34 @@ namespace: "fontless"
 applicationName: "fontless"
 applicationVersion: 1.0.0
 url: "fontless.thn.app"
-port: 80
+port: 3000
 startupProbePath: "/"
+install_namespace: false
+## Datadog Section
+## https://docs.datadoghq.com/agent/kubernetes/log/?tab=daemonset
+datadogAppAnnotations: '[{ "source" : "fontless-prd", "service": "fontless-prd" }]'
+apm: true
+terminationGracePeriodSeconds: 60
 
-# Datadog Section
-datadogAnnotations: '[{"source": "nginx", "service": "fontless-prd"}]'
-apm: false
+command: |
+  ["/bin/sh", "-c", "cd /app/ && npm run start"]
 
-# AWS Secret Manager 
+# AWS Secret Manager
 awsSecret: 
   enabled: false
-  name: ""
+  name: "thn-prd-fontless"
 
 ## Configure Resources for Containers
 ## ref: https://kubernetes.io/docs/concepts/configuration/manage-resources-containers/
 resources:
   limits:
-    cpu: 50m
-    memory: 128Mi
+    ephemeral-storage: 1500Mi
+    cpu: 10m
+    memory: 512Mi
   requests:
-    cpu: 25m
-    memory: 50Mi
+    ephemeral-storage: 1500Mi
+    cpu: 10m
+    memory: 512Mi
 
 ## Configure nodeSelector
 ## ref: https://kubernetes.io/docs/concepts/scheduling-eviction/assign-pod-node/
@@ -41,7 +48,7 @@ resources:
 nodeSelector:
   enabled: true
   values:
-    environment: prd-hp
+    ng: prd-hp
 
 # Configure deploymentStrategy
 deploymentStrategy:
@@ -50,7 +57,7 @@ deploymentStrategy:
     type: RollingUpdate
     rollingUpdate:
       maxSurge: 20%
-      maxUnavailable: 0  
+      maxUnavailable: 0
 
 # PodDisruptionBudget
 pdb:
@@ -58,11 +65,11 @@ pdb:
   minAvailable: 1
 
 # HorizontalPodAutoscaler
-hpa: 
+hpa:
   enabled: true
   values:
     minReplicas: 1
-    maxReplicas: 2
+    maxReplicas: 20
     metrics:
     - type: Resource
       resource:
@@ -75,5 +82,5 @@ hpa:
         name: cpu
         target:
           type: Utilization
-          averageUtilization: 70
+          averageUtilization: 80
 
