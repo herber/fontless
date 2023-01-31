@@ -5,7 +5,7 @@ orbs:
   helm: circleci/helm@2.0.1
 defaults: &defaults
   working_directory: ~/fontless
-  resource_class: medium+
+  resource_class: large
 jobs:
   deploy:
     <<: *defaults
