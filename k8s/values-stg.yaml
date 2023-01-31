@@ -35,11 +35,11 @@ awsSecret:
 resources:
   limits:
     ephemeral-storage: 1500Mi
-    cpu: 10m
+    cpu: 100m
     memory: 512Mi
   requests:
     ephemeral-storage: 1500Mi
-    cpu: 10m
+    cpu: 100m
     memory: 512Mi
 
 ## Configure nodeSelector
