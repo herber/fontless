@@ -7,7 +7,6 @@ defaults: &defaults
   working_directory: ~/fontless
   resource_class: medium+
 jobs:
-
   deploy:
     <<: *defaults
     executor: aws-eks/python3
@@ -29,7 +28,7 @@ jobs:
           skip-when-tags-exist: true
           setup-remote-docker: true
           remote-docker-layer-caching: true
-          tag: '${CIRCLE_TAG}'
+          tag: "${CIRCLE_TAG}"
       - helm/install-helm-client:
           version: "v3.7.2"
       - run:
@@ -57,15 +56,19 @@ workflows:
           context:
             - global
           filters:
+            tags:
+              only: /^\d+\.\d+\.\d+-stg$/
             branches:
-              only: master
+              ignore: /.*/
       - deploy:
           context:
             - global
             - staging
           filters:
+            tags:
+              only: /^\d+\.\d+\.\d+-stg$/
             branches:
-              only: master
+              ignore: /.*/
   production:
     jobs:
       - tests:
@@ -73,7 +76,7 @@ workflows:
             - global
           filters:
             tags:
-              only: /^\d+$/
+              only: /^\d+\.\d+\.\d+$/
             branches:
               ignore: /.*/
       - deploy:
@@ -82,6 +85,6 @@ workflows:
             - production
           filters:
             tags:
-              only: /^\d+$/
+              only: /^\d+\.\d+\.\d+$/
             branches:
               ignore: /.*/
