@@ -96,7 +96,7 @@ ingress:
       url: thehotelsnetwork.com
       paths:
         - path: /gfonts/.*
-          type: Exact
+          type: Prefix
           service: fontless
           port: 80
     - host:
