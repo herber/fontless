@@ -9,11 +9,13 @@ image:
   pullPolicy: IfNotPresent
 
 # Basic parameters
+external_ingress: true
 namespace: "fontless"
 applicationName: "fontless"
 applicationVersion: 1.0.0
 url: "fontless.thn.app"
-port: 3000
+port: 80
+targetPort: 3000
 startupProbePath: "/api/health"
 install_namespace: false
 ## Datadog Section
@@ -84,3 +86,23 @@ hpa:
           type: Utilization
           averageUtilization: 80
 
+server_snippet:
+    nginx.ingress.kubernetes.io/server-snippet: |
+      rewrite ^/gfonts(.*) $1 break;
+
+ingress:
+  dynamicHosts:
+    - host:
+      url: thehotelsnetwork.com
+      paths:
+        - path: /gfonts/.*
+          type: Exact
+          service: fontless
+          port: 80
+    - host:
+      url: www.thehotelsnetwork.com
+      paths:
+        - path: /gfonts/.*
+          type: Prefix
+          service: fontless
+          port: 80
