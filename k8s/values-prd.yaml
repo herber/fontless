@@ -1,0 +1,79 @@
+# Default values for application.
+# Declare variables to be passed into your templates.
+
+## Image Info
+image:
+  registry: "375001999600.dkr.ecr.eu-west-1.amazonaws.com"
+  repository: "thn-fontless"
+  tag: ""
+  pullPolicy: IfNotPresent
+
+# Basic parameters
+namespace: "fontless"
+applicationName: "fontless"
+applicationVersion: 1.0.0
+url: "fontless.thn.app"
+port: 80
+startupProbePath: "/"
+
+# Datadog Section
+datadogAnnotations: '[{"source": "nginx", "service": "fontless-prd"}]'
+apm: false
+
+# AWS Secret Manager 
+awsSecret: 
+  enabled: false
+  name: ""
+
+## Configure Resources for Containers
+## ref: https://kubernetes.io/docs/concepts/configuration/manage-resources-containers/
+resources:
+  limits:
+    cpu: 50m
+    memory: 128Mi
+  requests:
+    cpu: 25m
+    memory: 50Mi
+
+## Configure nodeSelector
+## ref: https://kubernetes.io/docs/concepts/scheduling-eviction/assign-pod-node/
+## If you need a new node, send a JIRA to infra team
+nodeSelector:
+  enabled: true
+  values:
+    environment: prd-hp
+
+# Configure deploymentStrategy
+deploymentStrategy:
+  enabled: true
+  strategy:
+    type: RollingUpdate
+    rollingUpdate:
+      maxSurge: 20%
+      maxUnavailable: 0  
+
+# PodDisruptionBudget
+pdb:
+  enabled: true
+  minAvailable: 1
+
+# HorizontalPodAutoscaler
+hpa: 
+  enabled: true
+  values:
+    minReplicas: 1
+    maxReplicas: 2
+    metrics:
+    - type: Resource
+      resource:
+        name: memory
+        target:
+          type: Utilization
+          averageUtilization: 90
+    - type: Resource
+      resource:
+        name: cpu
+        target:
+          type: Utilization
+          averageUtilization: 70
+

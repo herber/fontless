@@ -1,0 +1,87 @@
+version: 2.1
+orbs:
+  aws-eks: circleci/aws-eks@0.2
+  aws-ecr: circleci/aws-ecr@7.3.0
+  helm: circleci/helm@2.0.1
+defaults: &defaults
+  working_directory: ~/fontless
+  resource_class: medium+
+jobs:
+
+  deploy:
+    <<: *defaults
+    executor: aws-eks/python3
+    steps:
+      - checkout
+      - aws-eks/update-kubeconfig-with-authenticator:
+          cluster-name: ${CLUSTER_NAME}
+          aws-region: ${AWS_REGION}
+          install-kubectl: false
+      - aws-ecr/build-and-push-image:
+          account-url: AWS_ECR_ACCOUNT
+          aws-access-key-id: AWS_ACCESS_KEY_ID
+          aws-secret-access-key: AWS_SECRET_ACCESS_KEY
+          no-output-timeout: 20m
+          path: .
+          dockerfile: ./docker/Dockerfile
+          region: AWS_REGION
+          repo: ${ECR_REPOSITORY}
+          skip-when-tags-exist: true
+          setup-remote-docker: true
+          remote-docker-layer-caching: true
+          tag: '${CIRCLE_TAG}'
+      - helm/install-helm-client:
+          version: "v3.7.2"
+      - run:
+          name: Apply k8s
+          command: |
+            helm repo add the-hotels-network \
+              --username "${GITHUB_TOKEN}" \
+              --password "${GITHUB_TOKEN}" \
+              "https://raw.githubusercontent.com/the-hotels-network/helm-templates/master/"
+            helm upgrade -i fontless-release the-hotels-network/single-container --wait -f ./k8s/values-${ENV}.yaml --version 1.0.5  \
+            --set image.tag=${CIRCLE_SHA1}_${CIRCLE_BUILD_NUM} \
+            --set image.applicationVersion=${CIRCLE_TAG} \
+            --set image.registry=${AWS_ECR_ACCOUNT} \
+            --set image.repository=${ECR_REPOSITORY}
+      - run:
+          name: Verify deployment status
+          command: |
+            helm test fontless-release
+            echo "deployment succeeded"
+
+workflows:
+  staging:
+    jobs:
+      - tests:
+          context:
+            - global
+          filters:
+            branches:
+              only: master
+      - deploy:
+          context:
+            - global
+            - staging
+          filters:
+            branches:
+              only: master
+  production:
+    jobs:
+      - tests:
+          context:
+            - global
+          filters:
+            tags:
+              only: /^\d+$/
+            branches:
+              ignore: /.*/
+      - deploy:
+          context:
+            - global
+            - production
+          filters:
+            tags:
+              only: /^\d+$/
+            branches:
+              ignore: /.*/
