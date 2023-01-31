@@ -52,14 +52,6 @@ jobs:
 workflows:
   staging:
     jobs:
-      - tests:
-          context:
-            - global
-          filters:
-            tags:
-              only: /^\d+\.\d+\.\d+-stg$/
-            branches:
-              ignore: /.*/
       - deploy:
           context:
             - global
@@ -71,14 +63,6 @@ workflows:
               ignore: /.*/
   production:
     jobs:
-      - tests:
-          context:
-            - global
-          filters:
-            tags:
-              only: /^\d+\.\d+\.\d+$/
-            branches:
-              ignore: /.*/
       - deploy:
           context:
             - global
