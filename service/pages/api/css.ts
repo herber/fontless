@@ -28,7 +28,11 @@ export default async (req: NextApiRequest, res: NextApiResponse) => {
   if (res.headersSent || !parsedFonts) return;
 
   let variants = getVariants(parsedFonts, fonts);
-  let css = getCss(req.headers.host, variants, display);
+
+  // We use relative path for the assets. Alternative:
+  // const host = `https://${req.headers.host}`;
+  const host = '.';
+  let css = getCss(host, variants, display);
 
   res.setHeader('Content-Type', 'text/css');
   res.setHeader('Cache-Control', `max-age=${60 * 10}, s-maxage=${60 * 60 * 6}`);
