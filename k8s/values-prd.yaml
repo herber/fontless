@@ -1,0 +1,107 @@
+# Default values for application.
+# Declare variables to be passed into your templates.
+
+## Image Info
+image:
+  registry: ""
+  repository: ""
+  tag: ""
+  pullPolicy: IfNotPresent
+
+# Basic parameters
+external_ingress: true
+namespace: "fontless"
+applicationName: "fontless"
+applicationVersion: 1.0.0
+url: "fontless.thn.app"
+port: 80
+targetPort: 3000
+startupProbePath: "/api/health"
+install_namespace: false
+## Datadog Section
+## https://docs.datadoghq.com/agent/kubernetes/log/?tab=daemonset
+datadogAppAnnotations: '[{ "source" : "fontless-prd", "service": "fontless-prd" }]'
+apm: true
+terminationGracePeriodSeconds: 60
+
+command: |
+  ["/bin/sh", "-c", "cd /app/ && npm run start"]
+
+# AWS Secret Manager
+awsSecret:
+  enabled: false
+  name: "thn-prd-fontless"
+
+## Configure Resources for Containers
+## ref: https://kubernetes.io/docs/concepts/configuration/manage-resources-containers/
+resources:
+  limits:
+    ephemeral-storage: 1500Mi
+    cpu: 100m
+    memory: 512Mi
+  requests:
+    ephemeral-storage: 1500Mi
+    cpu: 100m
+    memory: 512Mi
+
+## Configure nodeSelector
+## ref: https://kubernetes.io/docs/concepts/scheduling-eviction/assign-pod-node/
+## If you need a new node, send a JIRA to infra team
+nodeSelector:
+  enabled: true
+  values:
+    ng: prd-hp
+
+# Configure deploymentStrategy
+deploymentStrategy:
+  enabled: true
+  strategy:
+    type: RollingUpdate
+    rollingUpdate:
+      maxSurge: 20%
+      maxUnavailable: 0
+
+# PodDisruptionBudget
+pdb:
+  enabled: true
+  minAvailable: 1
+
+# HorizontalPodAutoscaler
+hpa:
+  enabled: true
+  values:
+    minReplicas: 1
+    maxReplicas: 20
+    metrics:
+    - type: Resource
+      resource:
+        name: memory
+        target:
+          type: Utilization
+          averageUtilization: 90
+    - type: Resource
+      resource:
+        name: cpu
+        target:
+          type: Utilization
+          averageUtilization: 80
+
+nginx_ingress_snippet:
+  - rewrite ^/gfonts(.*) $1 break;
+
+ingress:
+  dynamicHosts:
+    - host:
+      url: thehotelsnetwork.com
+      paths:
+        - path: /gfonts/.*
+          type: Prefix
+          service: fontless
+          port: 80
+    - host:
+      url: www.thehotelsnetwork.com
+      paths:
+        - path: /gfonts/.*
+          type: Prefix
+          service: fontless
+          port: 80
