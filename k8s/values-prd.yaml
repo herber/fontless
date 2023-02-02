@@ -70,7 +70,7 @@ pdb:
 hpa:
   enabled: true
   values:
-    minReplicas: 1
+    minReplicas: 2
     maxReplicas: 20
     metrics:
     - type: Resource
@@ -84,7 +84,7 @@ hpa:
         name: cpu
         target:
           type: Utilization
-          averageUtilization: 80
+          averageUtilization: 90
 
 nginx_ingress_snippet:
   - rewrite ^/gfonts(.*) $1 break;
