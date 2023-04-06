@@ -61,12 +61,12 @@ deploymentStrategy:
 
 # PodDisruptionBudget
 pdb:
-  enabled: true
+  enabled: false
   minAvailable: 1
 
 # HorizontalPodAutoscaler
 hpa:
-  enabled: true
+  enabled: false
   values:
     minReplicas: 1
     maxReplicas: 2
