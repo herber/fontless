@@ -39,8 +39,8 @@ resources:
     memory: 512Mi
   requests:
     ephemeral-storage: 1500Mi
-    cpu: 100m
-    memory: 512Mi
+    cpu: 50m
+    memory: 256Mi
 
 ## Configure nodeSelector
 ## ref: https://kubernetes.io/docs/concepts/scheduling-eviction/assign-pod-node/
