@@ -21,6 +21,7 @@ install_namespace: false
 datadogAppAnnotations: '[{ "source" : "fontless-stg", "service": "fontless-stg" }]'
 apm: true
 terminationGracePeriodSeconds: 60
+external_ingress: true
 
 command: |
   ["/bin/sh", "-c", "cd /app/ && npm run start"]
@@ -83,4 +84,25 @@ hpa:
         target:
           type: Utilization
           averageUtilization: 80
+
+
+nginx_ingress_snippet:
+  - rewrite ^/gfonts(.*) $1 break;
+
+ingress:
+  dynamicHosts:
+    - host:
+      url: stg.thehotelsnetwork.com
+      paths:
+        - path: /gfonts/.*
+          type: Prefix
+          service: fontless
+          port: 80
+    - host:
+      url: www.stg.thehotelsnetwork.com
+      paths:
+        - path: /gfonts/.*
+          type: Prefix
+          service: fontless
+          port: 80
 
