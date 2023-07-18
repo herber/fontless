@@ -13,7 +13,6 @@ external_ingress: true
 namespace: "fontless"
 applicationName: "fontless"
 applicationVersion: 1.0.0
-url: "fontless.thn.app"
 port: 80
 targetPort: 3000
 startupProbePath: "/api/health"
@@ -89,19 +88,3 @@ hpa:
 nginx_ingress_snippet:
   - rewrite ^/gfonts(.*) $1 break;
 
-ingress:
-  dynamicHosts:
-    - host:
-      url: thehotelsnetwork.com
-      paths:
-        - path: /gfonts/.*
-          type: Prefix
-          service: fontless
-          port: 80
-    - host:
-      url: www.thehotelsnetwork.com
-      paths:
-        - path: /gfonts/.*
-          type: Prefix
-          service: fontless
-          port: 80

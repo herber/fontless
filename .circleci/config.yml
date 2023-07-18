@@ -39,7 +39,7 @@ jobs:
               --username "${GITHUB_TOKEN}" \
               --password "${GITHUB_TOKEN}" \
               "https://raw.githubusercontent.com/the-hotels-network/helm-templates/master/"
-            helm upgrade -i fontless-release the-hotels-network/single-container --wait -f ./k8s/values-${ENV}.yaml --version 1.0.7  \
+            helm upgrade -i fontless-release the-hotels-network/single-container --wait -f ./k8s/values-${ENV}.yaml --version 1.0.8  \
             --set image.tag=${CIRCLE_TAG} \
             --set image.applicationVersion=${CIRCLE_TAG} \
             --set image.registry=${AWS_ECR_ACCOUNT} \
