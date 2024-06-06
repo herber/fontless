@@ -1,5 +1,5 @@
 <h1 align="center">
-  <img src="https://cdn.varld.co/fontless/gh_header.png" alt="Fontless made by Varld" width="450">
+  Fontless
 </h1>
 <p align="center">A simple way to self-host google fonts.</p>
 
@@ -19,7 +19,7 @@ Fontless aims to give you the same comfort you get from Google Fonts for self-ho
 
 ## Setup 
 
-1. Visit [fontless.varld.co/setup](https://fontless.varld.co/setup).
+1. Visit start the fontless service
 2. Select the fonts you want
 3. Deploy to [Vercel](https://vercel.com) right from your browser or download the generated Fontless Service.
 
